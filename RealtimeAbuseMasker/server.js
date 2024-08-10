@@ -4,6 +4,7 @@ const morgan = require('morgan');
 const chalk = require('chalk');
 const { Server } = require('socket.io');
 const { createServer } = require('http')
+const { abuse_masker } = require('./abuse_masker.js');
 require('dotenv').config();
 
 const app = express();
@@ -36,9 +37,12 @@ io.on('connection', (client) => {
     client.on('msg', (payload) => {
         console.log(`${chalk.blue(client_map[client.id])}: ${payload.msg}`);
         // Some masking logic to place here
+        payload_to_send = { ...payload };
+        payload_to_send.msg = abuse_masker(payload.msg);
+        
         io.emit('msg', {
             username: client_map[client.id],
-            msg: payload.msg
+            msg: payload_to_send.msg
         });
     })
     
