@@ -1,4 +1,5 @@
 import psycopg2
+import time
 import threading
 
 def connectToDB():
@@ -63,6 +64,7 @@ def exec_query(user_id, user_seat_map):
 
 try:
     # Connect to PostgresQL
+    start_time = time.time()
     connection = connectToDB()
     connection.autocommit = True
     cursor = connection.cursor()
@@ -88,6 +90,8 @@ try:
     # Taking DB to original state
     update_query = f"UPDATE seats SET user_id = NULL;"
     cursor.execute(update_query)
+    end_time = time.time()
+    print(f"Total time taken: {end_time - start_time}")
 
 except psycopg2.Error as err:
     print(f"Error: {err}")

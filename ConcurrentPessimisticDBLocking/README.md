@@ -13,3 +13,6 @@ The core functionality includes:
 ### To seed the values in DB
 > Create a Database and name it 'seatsdb'
 ```cat seed.sql | psql -U postgres -d seatsdb```
+
+### Checkout
+> Time taken in approach-4 < time taken in approach-3 (As we are not busy-waiting in approach-4)
