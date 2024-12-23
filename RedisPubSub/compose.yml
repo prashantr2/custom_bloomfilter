@@ -1,0 +1,43 @@
+services:
+  redis-svc:
+    image: redis
+    ports:
+      - 6379:6379
+    networks:
+      - my_network
+  
+  publisher:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000                   # Visit http://localhost:3000 to send msg from UI
+    command: node publisher.js
+    depends_on:
+      - redis-svc
+    networks:
+      - my_network
+      
+  # Add as many subscribers you want
+  subscriber-1:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    command: node subscriber.js
+    depends_on:
+      - redis-svc
+    networks:
+      - my_network
+
+  subscriber-2:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    command: node subscriber.js
+    depends_on:
+      - redis-svc
+    networks:
+      - my_network
+      
+networks:
+  my_network: 
