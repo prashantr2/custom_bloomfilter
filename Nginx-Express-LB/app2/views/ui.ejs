@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Publisher UI</title>
+</head>
+<body>
+    <h3>App2</h3>
+    <form onSubmit="sendMsg" method="POST">
+        <input id="msgInput" name="msg" placeholder="Enter msg!" type="text"/>
+        <button>Send!</button>
+    </form> 
+    <script type="text/javascript">
+        function sendMsg(e) {
+            e.preventDefault();
+            fetch('/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ 
+                    msg: document.getElementById('msgInput').value 
+                })
+            })
+        }
+    </script>
+</body>
+</html>
