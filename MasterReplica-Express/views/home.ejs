@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sender UI</title>
+</head>
+<body>
+    <form id="msgForm" method="POST">
+        <input id="msgInput" name="msg" placeholder="Enter a query!" type="text"/>
+        <button>Send!</button>
+        <select name="executeOn" id="executeOn" default="primary" >
+            <option value="primary">Primary</option>
+            <option value="replica">Replica</option>
+        </select>
+    </form> 
+    <p minheight="15px">
+        <%=alert%>
+    </p>
+    <pre>
+        <%=data%>
+    </pre>
+    <script type="text/javascript" src="./script.js" defer> </script>
+</body>
+</html>
