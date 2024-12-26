@@ -1,0 +1,32 @@
+services:
+  rabbitmq:
+    build: 
+      context: .
+      dockerfile: Rabbitmq.Dockerfile
+    ports:
+      - 5673:5672
+      - 15673:15672
+    networks:
+      - my_network
+  publisher:
+    build:
+      context: publisher
+    depends_on:
+      - rabbitmq
+    ports:
+      - 3000:3000
+    networks:
+      - my_network
+  consumer:
+    build:
+      context: consumer
+    depends_on:
+      - rabbitmq
+      - publisher
+    ports:
+      - 4000:4000
+    networks:
+      - my_network
+networks:
+  my_network:
+    driver: bridge
